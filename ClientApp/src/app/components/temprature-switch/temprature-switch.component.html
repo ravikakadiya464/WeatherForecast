@@ -1,0 +1,9 @@
+<div class="unit-block text-accent text-left">
+  <div class="onoffswitch">
+    <input #check type="checkbox" name="onoffswitch" [(ngModel)]="isCelsius" (change)="changeUnit()" class="onoffswitch-checkbox" id="unit-switch">
+    <label class="onoffswitch-label" for="unit-switch">
+      <span class="onoffswitch-inner"></span>
+      <span class="onoffswitch-switch"> </span>
+    </label>
+  </div>
+</div>

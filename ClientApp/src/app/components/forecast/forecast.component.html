@@ -1,0 +1,9 @@
+<div class="day-box" (click)="setForecast()" [class]="background" [class.active]="active">
+  <p class="day">{{forecast.Date | date: 'EEE dd'}}</p>
+  <hr class="hr-title hr-title-primary">
+  <p><img
+    src="../assets/images/{{forecast.Icon}}.png"
+    alt="icon"
+  /></p>
+  <p><span class="d-min-temp">{{forecast.MinimumValue}}°</span> &nbsp;<span class="d-max-temp">{{forecast.MaximumValue}}°</span></p>
+</div>

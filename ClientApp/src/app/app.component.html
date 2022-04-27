@@ -1,0 +1,110 @@
+<div *ngIf="loader" class="loading">
+  <div class="spinner">
+    <div class="dot1"></div>
+    <div class="dot2"></div>
+  </div>
+</div>
+<section *ngIf="!loader" id="main">
+  <div class="bg-primary text-shadow" [class]="background">
+    <div class="w-section overlay-w-section">
+      <div class="container">
+        <div class="text-white w-header">
+          <div class="location">
+            <div>
+              <mat-form-field class="form-field">
+                <mat-label class="text-white">Location</mat-label>
+                <input
+                  type="text"
+                  aria-label="Location"
+                  matInput
+                  [formControl]="locationAutoCompleteControl"
+                  [matAutocomplete]="auto"
+                  matAutocompletePosition="below"
+                  class="text-white"
+                />
+                <mat-autocomplete
+                  autoActiveFirstOption
+                  #auto="matAutocomplete"
+                  (optionSelected)="displayForecast($event.option.value)"
+                  class="text-white"
+                >
+                  <mat-option
+                    *ngFor="let option of cities"
+                    [value]="option.localizedName"
+                  >
+                    {{ option.localizedName }}
+                  </mat-option>
+                </mat-autocomplete>
+              </mat-form-field>
+            </div>
+            <div>
+              <span id="date">{{
+                forecasts[index]["Date"] | date: "EEE dd, MMM YYYY"
+              }}</span>
+            </div>
+          </div>
+          <div class="temprature-switch">
+            <app-temprature-switch
+              (onUnitChange)="convetToFahrenheit($event)"
+            ></app-temprature-switch>
+          </div>
+        </div>
+        <div class="text-white w-main">
+          <div class="text-center">
+            <img
+              src="../assets/images/{{ forecasts[index]['Icon'] }}.png"
+              class="wi-main-icon"
+              alt="main-icon"
+            />
+            <p id="temperature">
+              <span class="d-min-temp"
+                >{{ forecasts[index]["MinimumValue"] }}° -
+              </span>
+              <span class="d-max-temp"
+                >{{ forecasts[index]["MaximumValue"] }}°</span
+              >
+            </p>
+          </div>
+        </div>
+        <div class="text-white w-desc-box">
+          <div>
+            <p id="description" class="text-bolder">
+              {{ forecasts[index]["IconPhrase"] }}
+            </p>
+            <p>
+              Wind Speed <span class="material-symbols-rounded">storm</span>
+              <span class="text-bolder"> {{ forecasts[index]["WindSpeed"] }}</span>
+            </p>
+          </div>
+          <div>
+            <p>
+              Air Quality
+              <span class="material-symbols-rounded">air</span>
+              <span class="text-bolder"> {{ forecasts[index]["AirQuality"] }}</span>
+            </p>
+            <p>
+              Cloud
+              <span class="material-symbols-rounded">cloud</span>
+              <span class="text-bolder"> {{ forecasts[index]["CloudCover"] }}%</span>
+            </p>
+          </div>
+        </div>
+    </div>
+    </div>
+  </div>
+  <div class="card-section">
+    <div class="text-center bg-white" [class]="backgroundImage">
+      <div class="days-box overlay">
+        <app-forecast
+          *ngFor="let item of forecasts; let i = index"
+          [forecast]="item"
+          [active]="index === i"
+          [index]="i"
+          [background]="background"
+          class="day-box"
+          (onDayClick)="setDay($event)"
+        ></app-forecast>
+      </div>
+    </div>
+  </div>
+</section>
