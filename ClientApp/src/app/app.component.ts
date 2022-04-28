@@ -48,6 +48,8 @@ export class AppComponent implements OnInit, OnDestroy {
       .subscribe(x => {
         this.setForecasts(x);
         this.loader = false;
+        this.backgroundImage = this.forecasts[this.index].IconPhrase.toLowerCase().replace(/ /g, '-').replace(/\//g, '');
+        this.background = this.forecasts[this.index].IconPhrase.toLowerCase().replace(/ /g, '-').replace(/\//g, '') + '-bg';
         this.locationAutoCompleteControl.setValue(`Surat, Gujarat, India`)
       });
 
