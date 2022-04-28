@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { FormControl } from '@angular/forms';
 import {
@@ -80,6 +80,17 @@ export class AppComponent implements OnInit, OnDestroy {
       .subscribe(x => {
         this.setForecasts(x);
       });
+  }
+
+  @HostListener('window:keyup.arrowleft', ['$event'])
+  keyArrowLeft() {
+    if(this.index - 1 >= 0) this.setDay(this.index - 1);
+  }
+
+  @HostListener('window:keyup.arrowright', ['$event'])
+  keyArrowRight() {
+    if(this.index + 1 < this.forecasts.length)
+      this.setDay(this.index + 1);
   }
 
   setDay(i: number) {
