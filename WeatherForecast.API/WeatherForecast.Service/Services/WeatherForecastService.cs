@@ -37,9 +37,8 @@ namespace WeatherForecast.Service.Services
         {
             try
             {
-                var currentDate = DateTime.Now.Date;
-                var startDate = currentDate.AddDays(-((int)currentDate.DayOfWeek - 1));
-                var endDate = startDate.AddDays(7).AddSeconds(-1);
+                var startDate = DateTime.Now.Date;
+                var endDate = startDate.AddDays(7);
 
                 var predicates =
                     new List<Expression<Func<Domain.Entities.WeatherForecast, bool>>>()
