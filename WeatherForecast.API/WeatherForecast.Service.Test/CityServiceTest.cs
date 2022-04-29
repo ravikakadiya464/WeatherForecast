@@ -27,8 +27,8 @@ namespace WeatherForecast.Service.Test
             accuWeatherApiSettingsMock.Setup(accuWeatherApiSettingsOptionMock => accuWeatherApiSettingsOptionMock.Value)
                 .Returns(new AccuWeatherApiSettings
                 {
-                    ApiKey = "S8PP36xP6xj3Xw9ofo3p32CYi0XL6ODs",
-                    BaseUrl = "http://dataservice.accuweather.com"
+                    ApiKey = "Api_Key",
+                    BaseUrl = "Url"
                 });
 
             var cityService = new CityService(
