@@ -25,7 +25,7 @@ export class AppComponent implements OnInit, OnDestroy {
   index: number;
   selectedCity: string;
   loader: boolean;
-  loaderClass: string;
+  opacityLoader: boolean;
   backgroundImage: string;
   background: string;
 
@@ -37,7 +37,7 @@ export class AppComponent implements OnInit, OnDestroy {
     this.index = 0;
     this.selectedCity = '';
     this.loader = true;
-    this.loaderClass = '';
+    this.opacityLoader = false;
     this.backgroundImage = '';
     this.background = '';
   }
@@ -49,6 +49,7 @@ export class AppComponent implements OnInit, OnDestroy {
       .getWeatherForCity('26797')
       .subscribe(x => {
         this.setForecasts(x);
+        debugger
         this.loader = false;
         this.backgroundImage = this.forecasts[this.index].IconPhrase.toLowerCase().replace(/ /g, '-').replace(/\//g, '');
         this.background = this.forecasts[this.index].IconPhrase.toLowerCase().replace(/ /g, '-').replace(/\//g, '') + '-bg';
@@ -76,14 +77,12 @@ export class AppComponent implements OnInit, OnDestroy {
     const selectedLocation: ICity[] = this.cities.filter(
       (option) => option.localizedName === value
     );
-    this.loader = true;
-    this.loaderClass = 'opacity-loading';
+    this.opacityLoader = true;
     this.locationSub$ = this.weatherForecastService
       .getWeatherForCity(selectedLocation[0].key)
       .subscribe(x => {
         this.setForecasts(x);
-        this.loader = false;
-        this.loaderClass = '';
+        this.opacityLoader = false;
       });
   }
 
