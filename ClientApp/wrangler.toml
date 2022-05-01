@@ -1,0 +1,9 @@
+name = "weatherforecast"
+type = "webpack"
+route = ''
+zone_id = ''
+usage_model = ''
+compatibility_flags = []
+site = {bucket = "dist/weather-app",entry-point = "workers-site"}
+workers_dev = true
+compatibility_date = "2022-05-01"
