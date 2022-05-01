@@ -37,8 +37,9 @@ namespace WeatherForecast.Service.Services
         {
             try
             {
-                var startDate = DateTime.Now.Date;
-                var endDate = startDate.AddDays(7);
+                var currentDate = DateTime.Now.Date;
+                var startDate = currentDate.AddDays(-((int)currentDate.DayOfWeek));
+                var endDate = startDate.AddDays(7).AddSeconds(-1);
 
                 var predicates =
                     new List<Expression<Func<Domain.Entities.WeatherForecast, bool>>>()
@@ -50,7 +51,7 @@ namespace WeatherForecast.Service.Services
                 var forecast = await _unitOfWork.WeatherForecastRepository.GetListAsync(predicates,
                     orderBy: x => x.OrderBy(x => x.ForecastDate), cancellationToken: cancellationToken);
 
-                if (forecast.Count == 0)
+                if (forecast.All(x => x.ForecastDate != currentDate))
                 {
                     var forecasts = await _httpClient.GetFromJsonAsync<WeatherForecastResponse>($"{_accuWeatherApiSettings.BaseUrl}/forecasts/v1/daily/5day/{locationKey}?apikey={_accuWeatherApiSettings.ApiKey}&details=true&metric=true", cancellationToken);
 

@@ -25,6 +25,7 @@ export class AppComponent implements OnInit, OnDestroy {
   index: number;
   selectedCity: string;
   loader: boolean;
+  loaderClass: string;
   backgroundImage: string;
   background: string;
 
@@ -36,6 +37,7 @@ export class AppComponent implements OnInit, OnDestroy {
     this.index = 0;
     this.selectedCity = '';
     this.loader = true;
+    this.loaderClass = '';
     this.backgroundImage = '';
     this.background = '';
   }
@@ -44,13 +46,13 @@ export class AppComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.locationSub$ = this.weatherForecastService
-      .getWeatherForCity('202441')
+      .getWeatherForCity('26797')
       .subscribe(x => {
         this.setForecasts(x);
         this.loader = false;
         this.backgroundImage = this.forecasts[this.index].IconPhrase.toLowerCase().replace(/ /g, '-').replace(/\//g, '');
         this.background = this.forecasts[this.index].IconPhrase.toLowerCase().replace(/ /g, '-').replace(/\//g, '') + '-bg';
-        this.locationAutoCompleteControl.setValue(`Surat, Gujarat, India`)
+        this.locationAutoCompleteControl.setValue(`Perth, Western Australia, Australia`)
       });
 
     this.locations$ = this.locationAutoCompleteControl.valueChanges
@@ -74,11 +76,14 @@ export class AppComponent implements OnInit, OnDestroy {
     const selectedLocation: ICity[] = this.cities.filter(
       (option) => option.localizedName === value
     );
-
+    this.loader = true;
+    this.loaderClass = 'opacity-loading';
     this.locationSub$ = this.weatherForecastService
       .getWeatherForCity(selectedLocation[0].key)
       .subscribe(x => {
         this.setForecasts(x);
+        this.loader = false;
+        this.loaderClass = '';
       });
   }
 

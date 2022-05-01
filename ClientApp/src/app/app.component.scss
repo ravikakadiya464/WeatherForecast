@@ -364,6 +364,10 @@ a:focus {
   position: absolute;
   z-index: 1;
 }
+.opacity-loading {
+  background-color: #000;
+  opacity: 0.7;
+}
 .spinner {
   top: 40%;
   margin: 100px auto;
