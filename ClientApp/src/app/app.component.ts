@@ -49,7 +49,6 @@ export class AppComponent implements OnInit, OnDestroy {
       .getWeatherForCity('26797')
       .subscribe(x => {
         this.setForecasts(x);
-        debugger
         this.loader = false;
         this.backgroundImage = this.forecasts[this.index].IconPhrase.toLowerCase().replace(/ /g, '-').replace(/\//g, '');
         this.background = this.forecasts[this.index].IconPhrase.toLowerCase().replace(/ /g, '-').replace(/\//g, '') + '-bg';
