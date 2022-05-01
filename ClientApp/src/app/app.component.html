@@ -1,10 +1,10 @@
-<div *ngIf="loader" class="loading" [class]="loaderClass">
+<div *ngIf="loader || opacityLoader" class="loading" [class.opacity-loading]="opacityLoader">
   <div class="spinner">
     <div class="dot1" [class]="background"></div>
     <div class="dot2" [class]="background"></div>
   </div>
 </div>
-<section id="main">
+<section *ngIf="opacityLoader || !loader" id="main">
   <div class="bg-primary text-shadow" [class]="background">
     <div class="w-section overlay-w-section">
       <div class="container">
