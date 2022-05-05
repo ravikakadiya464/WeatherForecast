@@ -117,9 +117,9 @@ export class AppComponent implements OnInit, OnDestroy {
         CloudCover: x?.forecastDetail?.cloudCover
       }
     });
+    this.index = this.forecasts.findIndex(x => x.IsToday);
     this.backgroundImage = this.forecasts[this.index].IconPhrase.toLowerCase().replace(/ /g, '-').replace(/\//g, '')
     this.background = this.forecasts[this.index].IconPhrase.toLowerCase().replace(/ /g, '-').replace(/\//g, '') + '-bg'
-    this.index = this.forecasts.findIndex(x => x.IsToday);
   }
 
   convetToFahrenheit(isCelsius: boolean) :void {
